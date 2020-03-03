@@ -21,6 +21,7 @@ use CloudCreativity\LaravelJsonApi\Exceptions\HandlesErrors;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Neomerx\JsonApi\Exceptions\JsonApiException;
+use Throwable;
 
 /**
  * Class TestExceptionHandler
@@ -64,10 +65,10 @@ class TestExceptionHandler extends ExceptionHandler
     ];
 
     /**
-     * @param Exception $e
-     * @throws Exception
+     * @param Throwable $e
+     * @throws Throwable
      */
-    public function report(Exception $e)
+    public function report(Throwable $e)
     {
         if ($this->shouldReport($e) && $this->rethrow) {
             throw $e;
@@ -76,10 +77,10 @@ class TestExceptionHandler extends ExceptionHandler
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param Exception $e
+     * @param Throwable $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, Throwable $e)
     {
         if ($this->isJsonApi($request, $e)) {
             return $this->renderJsonApi($request, $e);
@@ -89,10 +90,10 @@ class TestExceptionHandler extends ExceptionHandler
     }
 
     /**
-     * @param Exception $e
-     * @return Exception
+     * @param Throwable $e
+     * @return Throwable
      */
-    protected function prepareException(Exception $e)
+    protected function prepareException(Throwable $e)
     {
         if ($e instanceof JsonApiException) {
             return $this->prepareJsonApiException($e);
