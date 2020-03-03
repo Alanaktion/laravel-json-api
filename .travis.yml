@@ -51,6 +51,7 @@ matrix:
 
 install:
   - composer require "laravel/framework:${LARAVEL_VERSION}" --no-update -n
+  - '[[ "$LARAVEL_VERSION" = "^7.0" ]] && composer require laravel/ui "^2.0" --no-update -n'
   - composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update -n
   - travis_retry composer install --no-suggest --prefer-dist -n -o
 
